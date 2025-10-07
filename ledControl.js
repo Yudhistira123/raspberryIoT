@@ -1,10 +1,12 @@
-import { Gpio } from "pigpio";
+import rpio from "rpio";
 
-const led = new Gpio(17, { mode: Gpio.OUTPUT });
-let value = 0;
+rpio.init({ gpiomem: false }); // use /dev/mem if pigpiod not used
+const pin = 17;
+
+rpio.open(pin, rpio.OUTPUT, rpio.LOW);
 
 setInterval(() => {
-  value ^= 1;
-  led.digitalWrite(value);
-  console.log("LED is now", value ? "ON" : "OFF");
+  const state = rpio.read(pin);
+  rpio.write(pin, state ^ 1);
+  console.log("LED", state ? "OFF" : "ON");
 }, 1000);
