@@ -1,7 +1,7 @@
 import rpio from "rpio";
 
 rpio.init({ gpiomem: false }); // use /dev/mem if pigpiod not used
-const pin = 17;
+const pin = 27;
 
 rpio.open(pin, rpio.OUTPUT, rpio.LOW);
 
