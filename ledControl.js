@@ -1,20 +1,10 @@
-import { Gpio } from "onoff";
+import { Gpio } from "pigpio";
 
-// Define GPIO pin 17 as output Yudhistira
-const led = new Gpio(17, "out");
-
-// Blink LED every second
+const led = new Gpio(17, { mode: Gpio.OUTPUT });
 let value = 0;
-setInterval(() => {
-  value = value ^ 1; // toggle between 0 and 1
-  led.writeSync(value);
-  console.log(`LED is now ${value ? "ON" : "OFF"}`);
-}, 1000);
 
-// Cleanup on exit
-process.on("SIGINT", () => {
-  led.writeSync(0);
-  led.unexport();
-  console.log("Bye 👋");
-  process.exit();
-});
+setInterval(() => {
+  value ^= 1;
+  led.digitalWrite(value);
+  console.log("LED is now", value ? "ON" : "OFF");
+}, 1000);
