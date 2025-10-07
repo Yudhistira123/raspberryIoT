@@ -1,6 +1,6 @@
 import { Gpio } from "onoff";
 
-// Define GPIO pin 17 as output
+// Define GPIO pin 17 as output Yudhistira
 const led = new Gpio(17, "out");
 
 // Blink LED every second
