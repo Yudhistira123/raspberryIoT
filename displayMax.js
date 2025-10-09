@@ -4,7 +4,7 @@ import Max7219 from "max7219-display";
 
 // ====== MQTT & Wi-Fi Config ======
 const mqttHost = "mqtt://103.27.206.14";
-const mqttTopic = "parola/display";
+const mqttTopic = "parola_kb/display";
 const mqttPort = 1883;
 
 // ====== MAX7219 Config ======
