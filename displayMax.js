@@ -1,11 +1,12 @@
 import Max7219 from "max7219-display";
 import mqtt from "mqtt";
 
-// === SPI 0.0 = CE0 ===
-// If your MAX7219 uses CE1, use "/dev/spidev0.1"
-const display = new Max7219("/dev/spidev0.0", 4); // 4 modules
+// === Initialize the Display ===
+const display = new Max7219("/dev/spidev0.0", {
+  blocks: 4, // number of cascaded MAX7219 modules
+});
 
-// === MQTT Configuration ===
+// === MQTT Config ===
 const mqttServer = "mqtt://103.27.206.14:1883";
 const mqttTopic = "parola/display";
 
@@ -25,11 +26,13 @@ client.on("message", (topic, message) => {
   showMessage(text);
 });
 
+// === Function to Show Text ===
 function showMessage(text) {
-  //   display.clear();
-  //   display.writeString(text);
-
-  display.clear(); // clear old text
-  display.drawText(text); // write new text
-  display.render(); // send to matrix
+  try {
+    display.clear(); // clear previous text
+    display.text(text, { x: 0 }); // write text starting at column 0
+    display.render(); // send to the display
+  } catch (err) {
+    console.error("Display error:", err);
+  }
 }
