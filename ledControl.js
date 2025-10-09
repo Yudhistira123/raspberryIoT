@@ -9,4 +9,4 @@ setInterval(() => {
   const state = rpio.read(pin);
   rpio.write(pin, state ^ 1);
   console.log("LED", state ? "OFF" : "ON");
-}, 1000);
+}, 500);
