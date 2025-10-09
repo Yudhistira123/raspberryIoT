@@ -26,6 +26,10 @@ client.on("message", (topic, message) => {
 });
 
 function showMessage(text) {
-  display.clear();
-  display.writeString(text);
+  //   display.clear();
+  //   display.writeString(text);
+
+  display.clear(); // clear old text
+  display.drawText(text); // write new text
+  display.render(); // send to matrix
 }
