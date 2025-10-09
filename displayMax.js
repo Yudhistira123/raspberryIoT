@@ -1,12 +1,10 @@
-import Max7219 from "max7219-display";
+import { LedMatrix } from "node-max7219-led-matrix";
 import mqtt from "mqtt";
 
-// === Initialize the Display ===
-const display = new Max7219("/dev/spidev0.0", {
-  blocks: 4, // number of cascaded MAX7219 modules
-});
+// Initialize the LED matrix
+const matrix = new LedMatrix("/dev/spidev0.0", 4); // 4 cascaded 8x8 matrices
 
-// === MQTT Config ===
+// MQTT configuration
 const mqttServer = "mqtt://103.27.206.14:1883";
 const mqttTopic = "parola/display";
 
@@ -26,12 +24,10 @@ client.on("message", (topic, message) => {
   showMessage(text);
 });
 
-// === Function to Show Text ===
 function showMessage(text) {
   try {
-    display.clear(); // clear previous text
-    display.text(text, { x: 0 }); // write text starting at column 0
-    display.render(); // send to the display
+    matrix.clear();
+    matrix.showMessage(text);
   } catch (err) {
     console.error("Display error:", err);
   }
