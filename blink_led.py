@@ -13,9 +13,9 @@ print("LED blinking on pin 36 (GPIO16). Press Ctrl+C to stop.")
 try:
     while True:
         GPIO.output(LED_PIN, GPIO.HIGH)  # Turn LED on
-        time.sleep(1)                    # Wait 1 second
+        time.sleep(0.1)                    # Wait 1 second
         GPIO.output(LED_PIN, GPIO.LOW)   # Turn LED off
-        time.sleep(1)                    # Wait 1 second
+        time.sleep(0.1)                    # Wait 1 second
 except KeyboardInterrupt:
     print("\nStopping program...")
 finally:
